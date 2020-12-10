@@ -2,16 +2,16 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-def hh_euler(I, tmax, v, mi, hi, ni):
+def hh_euler(I, tmax, v, m_0, h_0, n_0):
     """
     simulates the Hodgkin-Huxley model of an action potential
     
     I - stimulus current in mA
     tmax - max time value in ms
     v - initial membrane potential
-    mi - initial value for m, the fraction of open sodium m-gates
-    hi - initial value for h, the fraction of open sodium h-gates
-    ni - initial value for n, the fraction of open potassium n-gates 
+    m_0 - initial value for m, the fraction of open sodium m-gates
+    h_0 - initial value for h, the fraction of open sodium h-gates
+    n_0 - initial value for n, the fraction of open potassium n-gates 
     """
     
     dt = 0.001
@@ -32,9 +32,9 @@ def hh_euler(I, tmax, v, mi, hi, ni):
     n = np.zeros((iterations,1))
   
     V[0]=v
-    m[0]=mi
-    h[0]=hi
-    n[0]=ni
+    m[0]=m_0
+    h[0]=h_0
+    n[0]=n_0
 
     # Euler's method
     for i in range(iterations-1):
@@ -74,8 +74,8 @@ if __name__ == "__main__":
         t, V = hh_euler(I_0[i], 100, -65, 0.4, 0.2, 0.5)
         pos = sub_pos[i]
         axs[pos].plot(t, V)
-        axs[pos].set(xlabel='t', ylabel='V')
-        axs[pos].set_title(str(I_0[i]) + ' mV')
+        axs[pos].set(xlabel='t (ms)', ylabel='V (mV)')
+        axs[pos].set_title(str(I_0[i]) + ' mV Stimulus Current')
         axs[pos].set_ylim([-80, 40])
     plt.suptitle('Membrane Potential vs. Time for Varying Stimulus Currents', fontsize=18)
     plt.show()
